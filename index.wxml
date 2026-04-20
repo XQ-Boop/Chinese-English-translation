@@ -1,0 +1,44 @@
+<!-- pages/index/index.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">中英翻译</text>
+  </view>
+
+  <!-- 输入区域 -->
+  <view class="input-area">
+    <textarea 
+      placeholder="请输入要翻译的文字" 
+      bindinput="onInput" 
+      value="{{query}}"
+      maxlength="500"
+      auto-height
+    />
+    <view class="lang-selector">
+      <picker bindchange="onSourceLangChange" value="{{sourceIndex}}" range="{{langList}}" range-key="{{'name'}}">
+        <view class="picker">
+          {{langList[sourceIndex].name}} <text class="icon">▼</text>
+        </view>
+      </picker>
+      <button class="swap-btn" bindtap="swapLanguage" size="mini">⇄</button>
+      <picker bindchange="onTargetLangChange" value="{{targetIndex}}" range="{{langList}}" range-key="{{'name'}}">
+        <view class="picker">
+          {{langList[targetIndex].name}} <text class="icon">▼</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 翻译按钮 -->
+  <button type="primary" bindtap="translate" loading="{{loading}}" disabled="{{!query}}">翻 译</button>
+
+  <!-- 结果区域 -->
+  <view class="result-area" wx:if="{{result}}">
+    <view class="result-header">
+      <text>翻译结果</text>
+      <button class="copy-btn" bindtap="copyResult" size="mini" plain>复制</button>
+    </view>
+    <view class="result-content">
+      <text>{{result}}</text>
+    </view>
+  </view>
+</view>
